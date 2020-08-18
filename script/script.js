@@ -29,7 +29,7 @@ const additionalExpensesItem = document.querySelector(
 );
 const expensesTitle = document.querySelector(".expenses-title");
 const expensesAmount = document.querySelector(".expenses-amount");
-
+const targetAmount = document.querySelector(".target-amount");
 const periodSelect = document.querySelector(".period-select");
 
 console.log(calculation);
@@ -53,5 +53,6 @@ console.log(
   additionalExpensesItem,
   expensesTitle,
   expensesAmount,
+  targetAmount,
   periodSelect
 );
