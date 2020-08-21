@@ -121,7 +121,7 @@ let appData = {
   },
 
   getTargetMonth: function () {
-    return targetAmount.value / appData.getBudget;
+    return targetAmount.value / appData.budgetMonth;
   },
 
   getStatusIncome: function () {
@@ -181,7 +181,6 @@ let appData = {
     periodAmount.textContent = periodSelect.value;
     return;
   },
-  
 };
 
 start.addEventListener("click", appData.start);
