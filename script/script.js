@@ -22,7 +22,10 @@ let start = document.getElementById("start"),
   expensesItems = document.querySelectorAll(".expenses-items"),
   incomeItems = document.querySelectorAll(".income-items"),
   targetAmount = document.querySelector(".target-amount"),
-  periodSelect = document.querySelector(".period-select");
+  periodSelect = document.querySelector(".period-select"),
+  periodAmount = document.querySelector(".period-amount");
+
+console.log(targetAmount.value);
 
 let appData = {
   income: {},
@@ -39,7 +42,7 @@ let appData = {
   expensesMonth: 0,
   start: function () {
     if (salaryAmount.value === "") {
-      alert('Ошибка! Поле "Месячный доход" должно быть заполнено.');
+      start.remuve.addEventListener("click", appData.start);
       return;
     }
     appData.budget = +salaryAmount.value;
@@ -59,6 +62,7 @@ let appData = {
     additionalExpensesValue.value = appData.addExpenses.join(", ");
     additionalIncomeValue.value = appData.addIncome.join(" ,");
     targetMonthValue.value = Math.ceil(appData.getTargetMonth());
+    periodSelect.addEventListener("input", appData.showResult);
     incomePeriodValue.value = appData.calcPeriod();
   },
 
@@ -173,11 +177,17 @@ let appData = {
   calcPeriod: function () {
     return appData.budgetMonth * periodSelect.value;
   },
+  addPeriodSelect: function () {
+    periodAmount.textContent = periodSelect.value;
+    return;
+  },
+  
 };
 
 start.addEventListener("click", appData.start);
 expensesPlus.addEventListener("click", appData.addExpensesBlock);
 incomePlus.addEventListener("click", appData.addIncomeBlock);
+periodSelect.addEventListener("input", appData.addPeriodSelect);
 
 // if (appData.getTargetMonth() > 0) {
 //   console.log(
