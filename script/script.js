@@ -1,6 +1,7 @@
 "use strict";
 
 let start = document.getElementById("start"),
+  cancel = document.getElementById("cancel"),
   incomePlus = document.getElementsByTagName("button")[0],
   expensesPlus = document.getElementsByTagName("button")[1],
   depositCheck = document.querySelector("#deposit-check"),
@@ -23,7 +24,10 @@ let start = document.getElementById("start"),
   incomeItems = document.querySelectorAll(".income-items"),
   targetAmount = document.querySelector(".target-amount"),
   periodSelect = document.querySelector(".period-select"),
-  periodAmount = document.querySelector(".period-amount");
+  periodAmount = document.querySelector(".period-amount"),
+  placeholderSum = document.querySelectorAll('[placeholder="Сумма"]'),
+  placeholderName = document.querySelectorAll('[placeholder="Наименование"]'),
+  main = document.querySelector(".main");
 
 console.log(targetAmount.value);
 
@@ -40,19 +44,52 @@ let appData = {
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
+  blockInput: function () {
+    placeholderSum = document.querySelectorAll('[placeholder="Сумма"]');
+    placeholderName = document.querySelectorAll('[placeholder="Наименование"]');
+    additionalExpensesItem.setAttribute("disabled", "disabled");
+    placeholderName.forEach(function (item) {
+      item.setAttribute("disabled", "disabled");
+    });
+    placeholderSum.forEach(function (item) {
+      item.setAttribute("disabled", "disabled");
+    });
+  },
   start: function () {
     if (salaryAmount.value === "") {
-      start.remuve.addEventListener("click", appData.start);
+      start.remuve.addEventListener("click", this.start);
+
       return;
     }
-    appData.budget = +salaryAmount.value;
-    appData.getExpenses();
-    appData.getIncome();
-    appData.getExpensesMonth();
-    appData.getAddExspenses();
-    appData.getAddIncome();
-    appData.getBudget();
-    appData.showResult();
+
+    this.budget = +salaryAmount.value;
+    this.getExpenses();
+    this.getIncome();
+    this.getExpensesMonth();
+    this.getAddExspenses();
+    this.getAddIncome();
+    this.getBudget();
+    this.showResult();
+    this.blockInput();
+    start.style.display = "none";
+    cancel.style.display = "block";
+  },
+  reset: function () {
+    let inputs = main.querySelectorAll("input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = "";
+    }
+    placeholderSum = document.querySelectorAll('[placeholder="Сумма"]');
+    placeholderName = document.querySelectorAll('[placeholder="Наименование"]');
+    additionalExpensesItem.removeAttribute("disabled", "disabled");
+    placeholderName.forEach(function (item) {
+      item.removeAttribute("disabled", "disabled");
+    });
+    placeholderSum.forEach(function (item) {
+      item.removeAttribute("disabled", "disabled");
+    });
+    start.style.display = "block";
+    cancel.style.display = "none";
   },
 
   showResult: function () {
@@ -182,11 +219,13 @@ let appData = {
     return;
   },
 };
+const appDataStartBind = appData.start.bind(appData);
 
-start.addEventListener("click", appData.start);
+start.addEventListener("click", appDataStartBind);
 expensesPlus.addEventListener("click", appData.addExpensesBlock);
 incomePlus.addEventListener("click", appData.addIncomeBlock);
 periodSelect.addEventListener("input", appData.addPeriodSelect);
+cancel.addEventListener("click", appData.reset);
 
 // if (appData.getTargetMonth() > 0) {
 //   console.log(
