@@ -244,19 +244,27 @@ AppData.prototype.addPeriodSelect = function () {
 
 
 AppData.prototype.eventListeners = function () {
+
+  const appDataStartBind = this.start.bind(this);
+  const expensesPlusBind = this.expensesPlus.bind(this);
+  const incomePlusBind = this.incomePlus.bind(this);
+  const periodSelectBind = this.periodSelect.bind(this);
+  const cancelBind = this.cancel.bind(this);
+
+
   start.addEventListener("click", appDataStartBind);
-  expensesPlus.addEventListener("click", this.addExpensesBlock);
-  incomePlus.addEventListener("click", this.addIncomeBlock);
-  periodSelect.addEventListener("input", this.addPeriodSelect);
-  cancel.addEventListener("click", this.reset);
+  expensesPlus.addEventListener("click", expensesPlusBind);
+  incomePlus.addEventListener("click", incomePlusBind);
+  periodSelect.addEventListener("input", periodSelectBind);
+  cancel.addEventListener("click", cancelBind);
 };
 
-let appData = new AppData();
+const appData = new AppData();
 appData.eventListeners();
 
-console.log(appData);
 
-const appDataStartBind = appData.start.bind(appData);
+
+
 
 
 
