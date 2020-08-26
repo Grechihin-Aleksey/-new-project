@@ -246,10 +246,10 @@ AppData.prototype.addPeriodSelect = function () {
 AppData.prototype.eventListeners = function () {
 
   const appDataStartBind = this.start.bind(this);
-  const expensesPlusBind = this.expensesPlus.bind(this);
-  const incomePlusBind = this.incomePlus.bind(this);
-  const periodSelectBind = this.periodSelect.bind(this);
-  const cancelBind = this.cancel.bind(this);
+  const expensesPlusBind = this.addExpensesBlock.bind(this);
+  const incomePlusBind = this.addIncomeBlock.bind(this);
+  const periodSelectBind = this.addPeriodSelect.bind(this);
+  const cancelBind = this.reset.bind(this);
 
 
   start.addEventListener("click", appDataStartBind);
