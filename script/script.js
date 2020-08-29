@@ -242,12 +242,7 @@ class AppData {
     }
   }
 
-  blockStart() {
-    start.disabled =
-      !salaryAmount.value.trim() ||
-      (depositCheck.checked &&
-        !(depositPercent.value.trim() && depositAmount.value.trim()));
-  }
+
 
   changePercent() {
     const valueIndex = this.value;
@@ -284,10 +279,20 @@ class AppData {
       this.deposit = false;
       depositBank.removeEventListener("change", this.changePercent);
     }
-    this.blockStart();
+
   }
 
   eventListeners() {
+    start.disabled = true;
+
+    salaryAmount.addEventListener('input', function () {
+      if (this.value.length > 2) {
+        start.disabled = false;
+      } else {
+        start.disabled = true;
+      }
+    });
+
     start.addEventListener("click", this.start.bind(this));
     expensesPlus.addEventListener("click", this.addExpensesBlock.bind(this));
     incomePlus.addEventListener("click", this.addIncomeBlock.bind(this));
