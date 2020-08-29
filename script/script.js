@@ -326,4 +326,3 @@ appData.eventListeners();
 //   item = item[0].toUpperCase() + item.slice(1);
 //   res += item + " ,";
 // }
-// console.log(res);
